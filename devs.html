@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developers | ZephyrDevs</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <style>
+        /* Specific Styles for Developer Page */
+        .devs-main {
+            padding-bottom: 6rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Glass Terminal */
+        .terminal-card {
+            background: var(--glass-dark-bg);
+            border: 1px solid var(--glass-dark-border);
+            box-shadow: var(--glass-dark-shadow);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            width: 100%;
+            max-width: 500px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-bottom: 4rem;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #eab308; }
+        .dot-green { background: #22c55e; }
+
+        .terminal-body {
+            color: #38bdf8;
+        }
+
+        .terminal-prompt {
+            color: #4ade80;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: #38bdf8;
+            margin-left: 4px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Profile Showcase */
+        .profile-card {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .logo-glow-wrapper {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        .logo-glow-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 36px;
+            filter: blur(15px);
+            opacity: 0.5;
+            z-index: -1;
+            animation: rotate-glow 8s linear infinite;
+        }
+
+        @keyframes rotate-glow {
+            0% { transform: scale(1); filter: blur(15px); }
+            50% { transform: scale(1.08); filter: blur(20px); }
+            100% { transform: scale(1); filter: blur(15px); }
+        }
+
+        .devs-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 36px;
+            padding: 1rem;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .profile-card h3 {
+            font-size: 2.8rem;
+            margin-bottom: 0.25rem;
+            background: linear-gradient(135deg, var(--dark) 30%, var(--primary) 70%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        body.dark-theme .profile-card h3 {
+            background: linear-gradient(135deg, #f8fafc 30%, #38bdf8 70%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .profile-card .agency-tag {
+            display: inline-block;
+            background: rgba(2, 132, 199, 0.08);
+            border: 1px solid rgba(2, 132, 199, 0.2);
+            color: var(--primary);
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 0.4rem 1.25rem;
+            border-radius: 100px;
+            margin-bottom: 2rem;
+        }
+
+        .profile-card .team-desc {
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            font-weight: 500;
+            line-height: 1.7;
+        }
+
+        /* Tech Stack Grid */
+        .tech-section {
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            padding-top: 3rem;
+            width: 100%;
+        }
+
+        .tech-section h4 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--dark-muted);
+            margin-bottom: 2rem;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .tech-card {
+            padding: 1.5rem;
+            border-radius: 20px;
+            text-align: left;
+        }
+
+        .tech-card h5 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-card p {
+            font-size: 0.85rem;
+        }
+
+        /* Connect Grid */
+        .connect-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            padding-top: 3rem;
+        }
+
+        .connect-button {
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--dark);
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .connect-button:hover {
+            transform: translateY(-4px);
+            background: var(--glass-bg-hover);
+            border-color: var(--primary);
+        }
+
+        .connect-button svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .connect-button.instagram svg {
+            color: #db2777;
+        }
+
+        .connect-button.email svg {
+            color: #0284c7;
+        }
+
+        .connect-button.website svg {
+            color: #10b981;
+        }
+
+        @media (max-width: 768px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            .connect-grid {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Glass Navigation Bar -->
+    <nav class="glass-nav">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://www.freeiconspng.com/uploads/doctor-symbol-universal-png-2.png" alt="Doctor Symbol">
+                <div class="logo-text">
+                    <h1>Shree Heart & Women Care</h1>
+                    <span>Specialized Clinic Patna</span>
+                </div>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="devs.html" class="nav-link active">Developer</a></li>
+                <li><button class="theme-toggle-btn" aria-label="Toggle Theme"></button></li>
+                <li><a href="contact.html" class="btn btn-primary btn-nav">Find Us</a></li>
+            </ul>
+
+            <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="32" height="32">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="devs.html">Developer</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><button class="theme-toggle-btn" aria-label="Toggle Theme"></button></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Section -->
+    <main class="container devs-main">
+        <section style="width:100%; display:flex; flex-direction:column; align-items:center;">
+            
+            <!-- Typewriter Terminal -->
+            <div class="terminal-card hero-animate-1">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-body">
+                    <span class="terminal-prompt">zephyr@devs:~$</span>
+                    <span id="typewriter"></span><span class="cursor"></span>
+                </div>
+            </div>
+
+            <!-- Profile Showcase -->
+            <div class="glass-card profile-card hero-animate-2">
+                <div class="logo-glow-wrapper">
+                    <img src="zephyr-logo.png" alt="ZephyrDevs Logo" class="devs-logo">
+                </div>
+                
+                <h3>ZephyrDevs</h3>
+                <span class="agency-tag">Premium Digital Architecture</span>
+                
+                <p class="team-desc">We are ZephyrDevs, a design-first development collective. We build bespoke digital spaces, combining extreme performance with premium minimalist aesthetics.</p>
+                
+                <!-- Capabilities -->
+                <div class="tech-section">
+                    <h4 class="reveal">Core Capabilities</h4>
+                    <div class="tech-grid">
+                        <div class="glass-card tech-card reveal delay-100">
+                            <h5>Fluid UX/UI</h5>
+                            <p>High-fidelity glassmorphic variables, custom vector transitions, and 120Hz smooth micro-animations.</p>
+                        </div>
+                        <div class="glass-card tech-card reveal delay-200">
+                            <h5>Optimized Code</h5>
+                            <p>Vanilla CSS overrides, micro-bundled modules, and lightning-fast local asset delivery protocols.</p>
+                        </div>
+                        <div class="glass-card tech-card reveal delay-300">
+                            <h5>SEO Precision</h5>
+                            <p>Semantic HTML5 structure, clean schema parameters, and high core vitals performance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connect Badges -->
+                <div class="connect-grid reveal delay-400">
+                    <a href="https://instagram.com/zephyrdevs" target="_blank" class="connect-button instagram">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12s.014 3.667.072 4.947c.2 4.353 2.612 6.766 6.947 6.947 1.28.058 1.688.072 4.947.072s3.667-.014 4.948-.072c4.351-.2 6.765-2.612 6.947-6.947.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.2-4.353-2.612-6.765-6.947-6.947C15.667.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                        <span>@zephyrdevs</span>
+                    </a>
+                    
+                    <a href="mailto:zephyrdevsofficial@gmail.com" class="connect-button email">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 0 02.22 0L21 8M5 19h14a2 2 0 0 02-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 02 2z"/>
+                        </svg>
+                        <span>zephyrdevsofficial@gmail.com</span>
+                    </a>
+                    
+                    <a href="https://zephyr-devs.vercel.app" target="_blank" class="connect-button website">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                        </svg>
+                        <span>zephyr-devs.vercel.app</span>
+                    </a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Shree AI Chatbot Widget -->
+    <div class="shree-ai-widget">
+        <button class="shree-ai-trigger" id="shree-ai-trigger" aria-label="Ask Shree AI">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="pulse-ring"></span>
+        </button>
+
+        <div class="shree-ai-frame" id="shree-ai-frame">
+            <div class="shree-ai-header">
+                <div class="shree-ai-avatar">
+                    <div class="shree-ai-avatar-icon">🤖</div>
+                    <div class="shree-ai-title-group">
+                        <h4>Shree AI</h4>
+                        <span>Online Helper</span>
+                    </div>
+                </div>
+                <button class="shree-ai-close" id="shree-ai-close" aria-label="Close Chat">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="shree-ai-messages" id="shree-ai-messages"></div>
+
+            <div class="chat-chips">
+                <button class="chip-btn" data-query="book">Book Slot</button>
+                <button class="chip-btn" data-query="hours">Clinic Hours</button>
+                <button class="chip-btn" data-query="address">Directions</button>
+                <button class="chip-btn" data-query="doctor">Specialists</button>
+                <button class="chip-btn" data-query="emergency">Emergency</button>
+            </div>
+
+            <div class="shree-ai-input-bar">
+                <input type="text" id="shree-ai-input" placeholder="Type a message..." aria-label="Query Input">
+                <button class="shree-ai-send-btn" id="shree-ai-send" aria-label="Send Query">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-copyright-box">
+                <p class="footer-copyright">&copy; 2026 Shree Heart & Women Care Clinic. All rights reserved.</p>
+                <ul class="footer-links">
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <a href="devs.html" class="dev-badge">
+                <span>Designed & built by</span>
+                <span class="dev-highlight">ZephyrDevs</span>
+                <span>✨</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Typewriter Script -->
+    <script>
+        const textElement = document.getElementById('typewriter');
+        const phrases = [
+            'npm install -g zephyr-devs',
+            'zephyr init --template glassmorphism',
+            'status: redesigning clinic portal...',
+            'success: layout fully expanded!',
+            'zephyr deploy --target production'
+        ];
+        
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 80;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 40;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 100;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2500;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+            setTimeout(type, typeSpeed);
+        }
+        document.addEventListener('DOMContentLoaded', type);
+    </script>
+</body>
+</html>

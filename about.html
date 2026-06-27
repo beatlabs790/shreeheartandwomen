@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story | Shree Heart & Women Care Clinic</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <style>
+        /* Specific Styles for About Page */
+        .about-main {
+            padding-bottom: 6rem;
+        }
+
+        .story-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .story-text h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--dark) 40%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        body.dark-theme .story-text h3 {
+            background: linear-gradient(135deg, #f8fafc 40%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .story-text p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .story-img-container {
+            position: relative;
+        }
+
+        .story-img-container::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 32px;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .story-img {
+            width: 100%;
+            height: auto;
+            border-radius: 32px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* Facilities Section */
+        .facility-card {
+            border-left: 4px solid var(--primary);
+        }
+
+        .facility-card.rose-border {
+            border-left-color: var(--secondary);
+        }
+
+        .facility-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .facility-list {
+            list-style: none;
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .facility-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--dark-muted);
+            font-weight: 500;
+        }
+
+        .facility-list li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .facility-card.rose-border .facility-list li::before {
+            color: var(--secondary);
+        }
+
+        /* Comfort Grid */
+        .comfort-section {
+            margin-top: 5rem;
+        }
+
+        .comfort-card {
+            text-align: center;
+        }
+
+        .comfort-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .comfort-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            margin-top: 5rem;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary) 0%, var(--secondary) 100%);
+            transform: translateX(-50%);
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 4px solid var(--light);
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            background: var(--secondary);
+        }
+
+        .timeline-content {
+            width: 85%;
+            margin-right: 30px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: 0;
+            margin-left: 30px;
+        }
+
+        .timeline-year {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item:nth-child(even) .timeline-year {
+            color: var(--secondary);
+        }
+
+        .timeline-content h4 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 968px) {
+            .story-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .timeline-container::before {
+                left: 20px;
+            }
+            .timeline-item {
+                justify-content: flex-start;
+                padding-right: 0;
+                padding-left: 45px;
+            }
+            .timeline-item:nth-child(even) {
+                padding-left: 45px;
+            }
+            .timeline-dot {
+                left: 20px;
+            }
+            .timeline-content {
+                width: 100%;
+                margin-right: 0 !important;
+                margin-left: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Glass Navigation Bar -->
+    <nav class="glass-nav">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://www.freeiconspng.com/uploads/doctor-symbol-universal-png-2.png" alt="Doctor Symbol">
+                <div class="logo-text">
+                    <h1>Shree Heart & Women Care</h1>
+                    <span>Specialized Clinic Patna</span>
+                </div>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+                <li><a href="devs.html" class="nav-link">Developer</a></li>
+                <li><button class="theme-toggle-btn" aria-label="Toggle Theme"></button></li>
+                <li><a href="contact.html" class="btn btn-primary btn-nav">Find Us</a></li>
+            </ul>
+
+            <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="32" height="32">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="devs.html">Developer</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><button class="theme-toggle-btn" aria-label="Toggle Theme"></button></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Section -->
+    <main class="container about-main">
+        
+        <!-- Story Section -->
+        <section class="story-layout">
+            <div class="story-text hero-animate-1">
+                <div class="section-tag">Our Origin Story</div>
+                <h3>Dedicated to Heart Health and Maternal Wellness</h3>
+                <p>Shree Heart & Women Care Clinic was founded with a singular, vital mission: to bridge the gap in specialized healthcare in Patna by bringing hospital-grade medical precision into a personalized and stress-free clinic setting.</p>
+                <p>We combine advanced diagnostic cardiology with highly specialized maternal-fetal medicine to support families at every milestone of life. Our clinics feature modern low-radiation equipment, relaxing interiors, and quick consultant queues, enabling patients to receive specialized attention without institutional delays.</p>
+            </div>
+            <div class="story-img-container hero-animate-2">
+                <img src="https://i.ibb.co/SwFt0L69/Screenshot-2026-05-14-15-33-17-78-3d9111e2d3171bf4882369f490c087b4.jpg" alt="Shree Heart & Women Care Clinic interior" class="story-img">
+            </div>
+        </section>
+
+        <!-- Facilities Section -->
+        <section>
+            <div class="section-header reveal">
+                <div class="section-tag">Clinical Capability</div>
+                <h2>Core Facilities & Technology</h2>
+                <p>Our clinic is equipped with the latest diagnostic capabilities to ensure highly accurate results on-site.</p>
+            </div>
+            
+            <div class="grid grid-2">
+                <div class="glass-card facility-card reveal delay-100">
+                    <h4>Advanced Cardiology Suite</h4>
+                    <p>Designed for preventive and diagnostic clinical cardiology, featuring modern cardiac screening protocols:</p>
+                    <ul class="facility-list">
+                        <li>High-Resolution Electrocardiogram (12-Lead ECG)</li>
+                        <li>Transthoracic 2D Echocardiography (Echo)</li>
+                        <li>Color Doppler Imaging for vascular mapping</li>
+                        <li>Automated blood pressure & heart rate rhythm analysis</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-card facility-card rose-border reveal delay-200">
+                    <h4>Maternal Care & Gynaecology Wing</h4>
+                    <p>Providing specialized services for comprehensive fetal-maternal well-being and high-risk pregnancies:</p>
+                    <ul class="facility-list">
+                        <li>Obstetric and fetal ultrasound diagnostics</li>
+                        <li>Continuous fetal heart rate Doppler monitoring</li>
+                        <li>Prenatal screening and gestational risk evaluations</li>
+                        <li>Comprehensive postpartum health consultations</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <div class="section-header reveal">
+                <div class="section-tag secondary-tag">Our History</div>
+                <h2>Milestones of Excellence</h2>
+                <p>How we grew to become one of Bailey Road's most trusted cardiac and women's health clinics.</p>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline-item reveal delay-100">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card timeline-content">
+                        <div class="timeline-year">2011</div>
+                        <h4>Clinic Foundation</h4>
+                        <p>Established Shree Heart & Women Care Clinic in Raja Bazar, Patna to serve as a focused outpatient clinic for cardiac and maternal consultations.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal delay-200">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card timeline-content">
+                        <div class="timeline-year">2015</div>
+                        <h4>Cardiology Upgrades</h4>
+                        <p>Integrated full-scale cardiac imaging and Doppler diagnostic technology, allowing patients to complete lab-grade tests instantly during consults.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal delay-300">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card timeline-content">
+                        <div class="timeline-year">2019</div>
+                        <h4>Fetal Medicine Focus</h4>
+                        <p>Launched the specialized Maternal-Fetal wellness module under Dr. Sanjita, specifically addressing high-risk gestational conditions.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal delay-400">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card timeline-content">
+                        <div class="timeline-year">2024</div>
+                        <h4>Digital Health Operations</h4>
+                        <p>Transitioned to modern electronic medical records, offering patients secure digital delivery of ECG and health reports via WhatsApp and email.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comfort Section -->
+        <section class="comfort-section">
+            <div class="section-header reveal">
+                <div class="section-tag">Patient Experience</div>
+                <h2>Our Comfort Standards</h2>
+                <p>We designed our environment to prioritize your mental and physical comfort throughout your visit.</p>
+            </div>
+            
+            <div class="grid grid-3">
+                <div class="glass-card comfort-card reveal delay-100">
+                    <div class="comfort-icon">🧼</div>
+                    <h4>Sanitized Environment</h4>
+                    <p>Clinical sterilization routines twice daily to maintain a safe, clean, and healthy clinical area.</p>
+                </div>
+                
+                <div class="glass-card comfort-card reveal delay-200">
+                    <div class="comfort-icon">🛋️</div>
+                    <h4>Serene Lounge</h4>
+                    <p>Ergonomic seating and calm ambient lighting to reduce patient anxiety during waiting times.</p>
+                </div>
+                
+                <div class="glass-card comfort-card reveal delay-300">
+                    <div class="comfort-icon">⚡</div>
+                    <h4>Direct Doctor Channel</h4>
+                    <p>Streamlined queue management ensures direct consultations without redundant middle-layer delays.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Shree AI Chatbot Widget -->
+    <div class="shree-ai-widget">
+        <button class="shree-ai-trigger" id="shree-ai-trigger" aria-label="Ask Shree AI">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="pulse-ring"></span>
+        </button>
+
+        <div class="shree-ai-frame" id="shree-ai-frame">
+            <div class="shree-ai-header">
+                <div class="shree-ai-avatar">
+                    <div class="shree-ai-avatar-icon">🤖</div>
+                    <div class="shree-ai-title-group">
+                        <h4>Shree AI</h4>
+                        <span>Online Helper</span>
+                    </div>
+                </div>
+                <button class="shree-ai-close" id="shree-ai-close" aria-label="Close Chat">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="shree-ai-messages" id="shree-ai-messages"></div>
+
+            <div class="chat-chips">
+                <button class="chip-btn" data-query="book">Book Slot</button>
+                <button class="chip-btn" data-query="hours">Clinic Hours</button>
+                <button class="chip-btn" data-query="address">Directions</button>
+                <button class="chip-btn" data-query="doctor">Specialists</button>
+                <button class="chip-btn" data-query="emergency">Emergency</button>
+            </div>
+
+            <div class="shree-ai-input-bar">
+                <input type="text" id="shree-ai-input" placeholder="Type a message..." aria-label="Query Input">
+                <button class="shree-ai-send-btn" id="shree-ai-send" aria-label="Send Query">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-copyright-box">
+                <p class="footer-copyright">&copy; 2026 Shree Heart & Women Care Clinic. All rights reserved.</p>
+                <ul class="footer-links">
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <a href="devs.html" class="dev-badge">
+                <span>Designed & built by</span>
+                <span class="dev-highlight">ZephyrDevs</span>
+                <span>✨</span>
+            </a>
+        </div>
+    </footer>
+</body>
+</html>

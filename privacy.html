@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Shree Heart & Women Care Clinic</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <style>
+        /* Specific Styles for Privacy Page */
+        .privacy-main {
+            padding-bottom: 6rem;
+            max-width: 900px;
+        }
+
+        .privacy-card {
+            margin-bottom: 2rem;
+        }
+
+        .privacy-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .privacy-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .privacy-card ul {
+            list-style: none;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .privacy-card ul li {
+            position: relative;
+            padding-left: 1.25rem;
+            font-size: 0.95rem;
+            color: var(--dark-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .privacy-card ul li::before {
+            content: '•';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Glass Navigation Bar -->
+    <nav class="glass-nav">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://www.freeiconspng.com/uploads/doctor-symbol-universal-png-2.png" alt="Doctor Symbol">
+                <div class="logo-text">
+                    <h1>Shree Heart & Women Care</h1>
+                    <span>Specialized Clinic Patna</span>
+                </div>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="devs.html" class="nav-link">Developer</a></li>
+                <li><button class="theme-toggle-btn" aria-label="Toggle Theme"></button></li>
+                <li><a href="contact.html" class="btn btn-primary btn-nav">Find Us</a></li>
+            </ul>
+
+            <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="32" height="32">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="devs.html">Developer</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><button class="theme-toggle-btn" aria-label="Toggle Theme"></button></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Section -->
+    <main class="container privacy-main" style="padding-top: 8rem;">
+        
+        <header class="section-header hero-animate-1" style="margin-bottom: 4rem;">
+            <div class="section-tag">Ethics & Guidelines</div>
+            <h2>Web Privacy Policy</h2>
+            <p>Effective Date: June 27, 2026. Learn how we handle clinical inquiries, diagnostic records, and cookie settings in compliance with medical confidentiality standards.</p>
+        </header>
+
+        <!-- 1. Patient Records Confidentiality -->
+        <div class="glass-card privacy-card reveal delay-100">
+            <h3><span>🫀</span> Fetal-Cardiovascular Confidentiality</h3>
+            <p>At Shree Heart & Women Care Clinic, we hold clinical privacy in the highest regard. All cardiac records—including 12-lead electrocardiograms (ECG), echocardiographies (ECHO), fetal Doppler scans, and obstetric ultrasound files—are handled directly under standard clinical confidentiality rules in accordance with India's Digital Information Security in Healthcare (DISHA) and international health record standards.</p>
+            <p>We ensure that:</p>
+            <ul>
+                <li>Diagnostic reports are handed over directly to the patient or verified family members.</li>
+                <li>Diagnostic results are not stored on public, unencrypted cloud environments.</li>
+                <li>Clinical discussions are confined strictly between Dr. Jwala or Dr. Sanjita and the patient.</li>
+            </ul>
+        </div>
+
+        <!-- 2. Consultation Forms & WhatsApp Bookings -->
+        <div class="glass-card privacy-card reveal delay-200">
+            <h3><span>📲</span> Form Inquiries & WhatsApp Integration</h3>
+            <p>When you submit an appointment consultation form on our website, the details entered (including Name, Contact phone number, Consultation type, preferred date, slot timings, and voluntary medical notes) are not saved in a central web database.</p>
+            <p>Instead, these fields are processed entirely within your local browser to build a pre-filled WhatsApp message. Once you trigger submission, you are routed directly to the WhatsApp API to finalize the booking. This architecture ensures that your personal information remains strictly between you and our front clinical desk, preventing third-party access.</p>
+        </div>
+
+        <!-- 3. Local Data Storage & Cookies -->
+        <div class="glass-card privacy-card reveal delay-300">
+            <h3><span>🍪</span> Local Storage Usage & Cookies</h3>
+            <p>Our website utilizes light, non-tracking client-side browser features (cookies and localStorage) to improve your experience. These local variables do not track your browsing history or transmit your data back to us:</p>
+            <ul>
+                <li><strong>Theme Choice</strong>: Stores whether you prefer Dark Mode or Light Mode layouts to ensure visual consistency on subsequent page loads.</li>
+                <li><strong>Cookie Consent</strong>: Remembers whether you have acknowledged the cookie banner popup so it does not appear repeatedly.</li>
+                <li><strong>Chat State</strong>: Remembers current dialogue threads with Shree AI inside the active tab.</li>
+            </ul>
+        </div>
+
+        <!-- 4. Patient Rights -->
+        <div class="glass-card privacy-card reveal delay-400">
+            <h3><span>🤝</span> Your Control & Medical Ethics</h3>
+            <p>As a patient, you retain absolute authority over your medical history and clinical reporting. You have the right to request a physical copy of all diagnostics performed on-site at Raja Bazar, Patna, or ask for digital records transmittal via secure, verified email.</p>
+            <p>For any privacy clarifications or concerns, you can contact our clinic directors directly at <strong>9693762649</strong>.</p>
+        </div>
+
+    </main>
+
+    <!-- Shree AI Chatbot Widget -->
+    <div class="shree-ai-widget">
+        <button class="shree-ai-trigger" id="shree-ai-trigger" aria-label="Ask Shree AI">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="pulse-ring"></span>
+        </button>
+
+        <div class="shree-ai-frame" id="shree-ai-frame">
+            <div class="shree-ai-header">
+                <div class="shree-ai-avatar">
+                    <div class="shree-ai-avatar-icon">🤖</div>
+                    <div class="shree-ai-title-group">
+                        <h4>Shree AI</h4>
+                        <span>Online Helper</span>
+                    </div>
+                </div>
+                <button class="shree-ai-close" id="shree-ai-close" aria-label="Close Chat">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="shree-ai-messages" id="shree-ai-messages"></div>
+
+            <div class="chat-chips">
+                <button class="chip-btn" data-query="book">Book Slot</button>
+                <button class="chip-btn" data-query="hours">Clinic Hours</button>
+                <button class="chip-btn" data-query="address">Directions</button>
+                <button class="chip-btn" data-query="doctor">Specialists</button>
+                <button class="chip-btn" data-query="emergency">Emergency</button>
+            </div>
+
+            <div class="shree-ai-input-bar">
+                <input type="text" id="shree-ai-input" placeholder="Type a message..." aria-label="Query Input">
+                <button class="shree-ai-send-btn" id="shree-ai-send" aria-label="Send Query">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-copyright-box">
+                <p class="footer-copyright">&copy; 2026 Shree Heart & Women Care Clinic. All rights reserved.</p>
+                <ul class="footer-links">
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <a href="devs.html" class="dev-badge">
+                <span>Designed & built by</span>
+                <span class="dev-highlight">ZephyrDevs</span>
+                <span>✨</span>
+            </a>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us & Book | Shree Heart & Women Care Clinic</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <style>
+        /* Specific Styles for Contact Page */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: stretch;
+            margin-bottom: 5rem;
+        }
+
+        .contact-form-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--dark-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* Success Dialog */
+        .success-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .success-dialog {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+            padding: 3rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body.dark-theme .success-dialog {
+            background: rgba(15, 23, 42, 0.85);
+        }
+
+        .success-overlay.open {
+            display: flex;
+        }
+
+        .success-overlay.open .success-dialog {
+            transform: scale(1);
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .success-dialog h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-dialog p {
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* Info Section */
+        .info-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 1.25rem;
+            margin-bottom: 2.25rem;
+        }
+
+        .info-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
+        }
+
+        .info-icon.blue { background: rgba(2, 132, 199, 0.1); color: var(--primary); }
+        .info-icon.rose { background: rgba(219, 39, 119, 0.1); color: var(--secondary); }
+        .info-icon.green { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+
+        .info-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-text p {
+            font-size: 0.95rem;
+        }
+
+        .info-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        .info-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Emergency Section */
+        .emergency-banner {
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            background: rgba(239, 68, 68, 0.06);
+            border-radius: 24px;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .emergency-badge {
+            background: #ef4444;
+            color: var(--light);
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { transform: scale(0.98); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.98); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        .emergency-text h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+            color: #b91c1c;
+        }
+
+        body.dark-theme .emergency-text h4 {
+            color: #f87171;
+        }
+
+        .emergency-text p {
+            font-size: 0.95rem;
+        }
+
+        /* Map Card */
+        .map-card {
+            border-radius: 28px;
+            overflow: hidden;
+            height: 450px;
+            padding: 0;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* Directions Guide */
+        .directions-section {
+            margin-top: 5rem;
+        }
+
+        .dir-card {
+            border-top: 4px solid var(--primary);
+        }
+
+        .dir-card h4 {
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+        }
+
+        @media (max-width: 968px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .emergency-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Glass Navigation Bar -->
+    <nav class="glass-nav">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://www.freeiconspng.com/uploads/doctor-symbol-universal-png-2.png" alt="Doctor Symbol">
+                <div class="logo-text">
+                    <h1>Shree Heart & Women Care</h1>
+                    <span>Specialized Clinic Patna</span>
+                </div>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="devs.html" class="nav-link">Developer</a></li>
+                <li><button class="theme-toggle-btn" aria-label="Toggle Theme"></button></li>
+                <li><a href="contact.html" class="btn btn-primary btn-nav">Find Us</a></li>
+            </ul>
+
+            <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="32" height="32">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="devs.html">Developer</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><button class="theme-toggle-btn" aria-label="Toggle Theme"></button></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Section -->
+    <main class="container" style="padding-top: 8rem; padding-bottom: 6rem;">
+        
+        <header class="section-header hero-animate-1">
+            <div class="section-tag">Get In Touch</div>
+            <h2>Reach Out & Book</h2>
+            <p>Schedule your clinical consultations, diagnostics, or reach out with any clinical enquiries directly.</p>
+        </header>
+
+        <!-- Emergency Banner -->
+        <div class="emergency-banner hero-animate-2">
+            <span class="emergency-badge">Emergency</span>
+            <div class="emergency-text">
+                <h4>Cardiac & Pregnancy Emergencies</h4>
+                <p>If you or a family member are experiencing immediate symptoms like severe chest pain, shortness of breath, or acute gestational issues, call our direct medical helpline immediately at <strong style="color:var(--dark);">9693762649</strong>.</p>
+            </div>
+        </div>
+
+        <div class="contact-grid">
+            <!-- Details Column -->
+            <div class="glass-card info-card reveal delay-100">
+                <div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 2rem;">Clinic Directory</h3>
+                    
+                    <!-- Address -->
+                    <div class="info-item">
+                        <div class="info-icon blue">📍</div>
+                        <div class="info-text">
+                            <h4>Location</h4>
+                            <p>Pillar No: 55, Bailey Rd, Raja Bazar, Sheikhpura, Patna, Bihar 800014</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Hours -->
+                    <div class="info-item">
+                        <div class="info-icon rose">🕒</div>
+                        <div class="info-text">
+                            <h4>Hours of Operation</h4>
+                            <p>Sunday - Friday: 8:30 AM - 7:30 PM</p>
+                            <p style="color: var(--secondary); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem;">Saturday Closed for Sanitization</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Phone -->
+                    <div class="info-item">
+                        <div class="info-icon green">📞</div>
+                        <div class="info-text">
+                            <h4>Appointments Hotline</h4>
+                            <p>Dial to book or ask diagnostic queries:</p>
+                            <div class="info-links">
+                                <a href="tel:9693762649">9693762649</a>
+                                <a href="tel:8292791555">8292791555</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid rgba(255, 255, 255, 0.3); padding-top: 2rem; margin-top: 2rem;">
+                    <p style="font-size: 0.85rem; font-weight: 600;">Need direct route navigation? Open our address coordinates directly in your navigation app.</p>
+                </div>
+            </div>
+
+            <!-- Booking Form Column -->
+            <div class="glass-card contact-form-card reveal delay-200">
+                <h3 style="font-size: 1.8rem; margin-bottom: 2rem;">Consultation Inquiry</h3>
+                
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="glass-input" placeholder="e.g. Anil Sinha" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="glass-input" placeholder="10-digit number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Consultation Type</label>
+                            <select id="type" class="glass-input" style="appearance: none;" required>
+                                <option value="" disabled selected>Select specialization</option>
+                                <option value="Cardiology Checkup">Cardiology Checkup (Dr. Jwala)</option>
+                                <option value="Pregnancy Wellness">Pregnancy Wellness (Dr. Sanjita)</option>
+                                <option value="Gynaecology Consult">Gynaecology Consultation</option>
+                                <option value="ECG / Echo Diagnostics">ECG / Echo Diagnostics</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Preferred Date</label>
+                            <input type="date" id="date" class="glass-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Preferred Time Slot</label>
+                            <select id="time" class="glass-input" style="appearance: none;" required>
+                                <option value="" disabled selected>Select slot</option>
+                                <option value="Morning (09:00 AM - 12:00 PM)">Morning (09:00 AM - 12:00 PM)</option>
+                                <option value="Afternoon (12:00 PM - 03:00 PM)">Afternoon (12:00 PM - 03:00 PM)</option>
+                                <option value="Evening (04:00 PM - 07:00 PM)">Evening (04:00 PM - 07:00 PM)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label for="message">Medical Notes (Optional)</label>
+                        <textarea id="message" class="glass-input" rows="3" placeholder="Brief details of chest discomfort, gestational cycle status, or diagnostics required..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit & Book via WhatsApp 📲</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Google Maps Integration -->
+        <div class="glass-card map-card reveal">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.0434866323058!2d85.08563017778414!3d25.6034711774516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed57e2dff61777%3A0x6a5a1cda6c727e52!2sShree%20heart%20%26%20women%20care%20clinic!5e0!3m2!1sen!2sin!4v1778752275960!5m2!1sen!2sin" 
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+
+        <!-- Directions Guide Section -->
+        <section class="directions-section">
+            <div class="section-header reveal">
+                <div class="section-tag">Transit Guide</div>
+                <h2>How to Reach the Clinic</h2>
+                <p>Located on Bailey Road opposite Raja Bazar. Find instructions depending on your transport mode.</p>
+            </div>
+
+            <div class="grid grid-3">
+                <div class="glass-card dir-card reveal delay-100">
+                    <h4>🚍 By Public Bus</h4>
+                    <p>Board any bus traveling along Bailey Road and alight at the Raja Bazar Flyover bus stop. Walk 2 minutes toward Pillar No. 55.</p>
+                </div>
+                
+                <div class="glass-card dir-card reveal delay-200">
+                    <h4>🛺 By Auto Rickshaw</h4>
+                    <p>Auto-rickshaws run frequently from Patna Junction and Danapur. Request drop-off directly opposite Pillar No. 55 near Raja Bazar.</p>
+                </div>
+
+                <div class="glass-card dir-card reveal delay-300">
+                    <h4>🚇 By Upcoming Metro</h4>
+                    <p>Alight at the Sheikhpura / Raja Bazar underground Metro station (currently under construction) and take Exit 2 for quick clinic access.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Success Dialog Overlay -->
+    <div class="success-overlay" id="success-overlay">
+        <div class="success-dialog">
+            <div class="success-icon">✓</div>
+            <h3>Redirecting to WhatsApp...</h3>
+            <p id="success-message"></p>
+            <button class="btn btn-primary" id="success-close" style="width: 100%;">Done</button>
+        </div>
+    </div>
+
+    <!-- Shree AI Chatbot Widget -->
+    <div class="shree-ai-widget">
+        <button class="shree-ai-trigger" id="shree-ai-trigger" aria-label="Ask Shree AI">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="pulse-ring"></span>
+        </button>
+
+        <div class="shree-ai-frame" id="shree-ai-frame">
+            <div class="shree-ai-header">
+                <div class="shree-ai-avatar">
+                    <div class="shree-ai-avatar-icon">🤖</div>
+                    <div class="shree-ai-title-group">
+                        <h4>Shree AI</h4>
+                        <span>Online Helper</span>
+                    </div>
+                </div>
+                <button class="shree-ai-close" id="shree-ai-close" aria-label="Close Chat">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="shree-ai-messages" id="shree-ai-messages"></div>
+
+            <div class="chat-chips">
+                <button class="chip-btn" data-query="book">Book Slot</button>
+                <button class="chip-btn" data-query="hours">Clinic Hours</button>
+                <button class="chip-btn" data-query="address">Directions</button>
+                <button class="chip-btn" data-query="doctor">Specialists</button>
+                <button class="chip-btn" data-query="emergency">Emergency</button>
+            </div>
+
+            <div class="shree-ai-input-bar">
+                <input type="text" id="shree-ai-input" placeholder="Type a message..." aria-label="Query Input">
+                <button class="shree-ai-send-btn" id="shree-ai-send" aria-label="Send Query">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-copyright-box">
+                <p class="footer-copyright">&copy; 2026 Shree Heart & Women Care Clinic. All rights reserved.</p>
+                <ul class="footer-links">
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <a href="devs.html" class="dev-badge">
+                <span>Designed & built by</span>
+                <span class="dev-highlight">ZephyrDevs</span>
+                <span>✨</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        const bookingForm = document.getElementById('booking-form');
+        const successOverlay = document.getElementById('success-overlay');
+        const successMessage = document.getElementById('success-message');
+        const successClose = document.getElementById('success-close');
+
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const nameVal = document.getElementById('name').value;
+            const phoneVal = document.getElementById('phone').value;
+            const typeVal = document.getElementById('type').value;
+            const dateVal = document.getElementById('date').value;
+            const slotVal = document.getElementById('time').value;
+            const messageVal = document.getElementById('message').value || "None";
+
+            const dateObj = new Date(dateVal);
+            const formattedDate = dateObj.toLocaleDateString('en-US', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            const textMessage = `Hello Shree Heart & Women Care Clinic, I would like to book a consultation.\n\nDetails:\n- Name: ${nameVal}\n- Contact Phone: ${phoneVal}\n- Consultation Type: ${typeVal}\n- Preferred Date: ${formattedDate}\n- Preferred Slot: ${slotVal}\n- Medical Notes: ${messageVal}`;
+            
+            const encodedText = encodeURIComponent(textMessage);
+            const waUrl = `https://wa.me/919693762649?text=${encodedText}`;
+
+            successMessage.innerHTML = `We are redirecting you to WhatsApp to complete your booking for <strong>${typeVal}</strong> on <strong>${formattedDate}</strong>.<br><br>If WhatsApp does not open automatically, please click below:<br><br><a href="${waUrl}" target="_blank" class="btn btn-secondary" style="padding: 0.6rem 1.25rem; font-size: 0.85rem; border-radius: 12px; display: inline-flex;">📲 Open WhatsApp Manually</a>`;
+
+            successOverlay.classList.add('open');
+
+            setTimeout(() => {
+                window.open(waUrl, '_blank');
+            }, 800);
+        });
+
+        successClose.addEventListener('click', () => {
+            successOverlay.classList.remove('open');
+            bookingForm.reset();
+        });
+    </script>
+</body>
+</html>
